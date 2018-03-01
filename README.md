@@ -20,10 +20,8 @@ written in C/C++.
 
 ## Downloading
 
-Create a directory for the projects and close the Github repo.
+clone the Github repo.
 
-    mkdir ~/c-projects
-    cd ~/c-projects
     git clone https://github.com/shawnhcorey/c-projects.git
 
 It is now ready for new projects.
@@ -40,6 +38,8 @@ To make the executable, run `make`.
     cd myproject
     # add C/C++ files
     make
+
+You can edit the C/C++ files and use `make` to recompile.
 
 ## Updates
 
