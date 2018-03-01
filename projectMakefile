@@ -1,0 +1,28 @@
+#
+#     Title: Master Makefile
+# Copyright: Copyright 2015 by Shawn H Corey.  All rights reserved.
+#   Licence: GPLv3, see https://www.gnu.org/licenses/gpl-3.0.html
+#   Purpose: Controls which subdirectorys are made.
+#
+#
+
+# configuration
+
+.PHONY: all clean install uninstall
+
+BUILD = './build'
+
+# PHONY targets
+
+all:
+	$(MAKE) -C $(BUILD) all
+
+clean:
+	$(MAKE) -C $(BUILD) clean
+
+install:
+	$(MAKE) -C $(BUILD) install
+
+uninstall:
+	$(MAKE) -C $(BUILD) uninstall
+

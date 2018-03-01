@@ -1,0 +1,22 @@
+#
+#     Title: %P Git Ignore
+# Copyright: Copyright %Y by %U. Some rights reserved.
+#   Licence: GPLv3, see https://www.gnu.org/licenses/gpl-3.0.html
+#   Purpose: Files & directories not to include in git.
+#
+
+# tarballs
+*.tgz
+*.gz
+
+# backup files
+*.bak
+
+# temporary files
+*.swp
+*.tmp
+
+# files & directories
+**/build/*
+!**/Makefile
+
