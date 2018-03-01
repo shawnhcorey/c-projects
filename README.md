@@ -20,8 +20,9 @@ written in C/C++.
 
 ## Downloading
 
-clone the Github repo.
+Clone the Github repo.
 
+    cd ~
     git clone https://github.com/shawnhcorey/c-projects.git
 
 It is now ready for new projects.
@@ -36,7 +37,9 @@ To make the executable, run `make`.
     cd ~/c-projects
     newprj.sh myproject
     cd myproject
+
     # add C/C++ files
+
     make
 
 You can edit the C/C++ files and use `make` to recompile.
