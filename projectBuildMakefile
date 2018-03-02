@@ -2,24 +2,24 @@
 #     Title: Build Makefile
 # Copyright: Copyright 2015 by Shawn H Corey.  All rights reserved.
 #   Licence: GPLv3, see https://www.gnu.org/licenses/gpl-3.0.html
-#   Purpose: Used to make(1) an wxWidgets project.
+#   Purpose: Used to GNU make to build a C/C++ project.
 #
 
 # configuration
 
 .PHONY: all clean install uninstall
 
-.SUFFIXES: .o .cpp .h .mak
+.SUFFIXES: .o .cpp .c .h .mak
 
-# housekeeping variables
-VPATH    = ..
-SHELL    = /bin/bash
+VPATH = ..
 
-# make commands
+# compiling commands
+CC  = gcc
 CXX = gcc
 LD  = gcc
 
 # standard compile flags
+CFLAGS   = -Wall
 CXXFLAGS = -Wall
 LDLIBS   = -lstdc++ -lm -lc
 MFLAGS   = -MM -MT
@@ -35,18 +35,24 @@ SOURCES  = $(foreach srcdir,$(SRCDIRS),$(wildcard $(srcdir)/*.cpp) $(wildcard $(
 DEPENDS  = $(addsuffix .mak,$(basename $(notdir $(SOURCES))))
 OBJECTS  = $(addsuffix .o,$(basename $(notdir $(SOURCES))))
 
-# file maniputation commands
+# file manipulation commands
 RMCMD = rm -f
 CPCMD = cp -f
 LNCMD = ln -sf
 
-# rules
+# implicit rules for C++
+%.mak : %.cpp
+	$(CXX) $(CPPFLAGS) $(MFLAGS) '$(patsubst %.mak,%.o,$@) $@' -MF $@ $<
 
-.c.mak .cpp.mak:
-	$(CXX) $(MFLAGS) '$(patsubst %.mak,%.o,$@) $@' -MF $@ $<
+%.o : %.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ -c $<
 
-.c.o .cpp.o:
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
+# implicit rules for C
+%.mak : %.c
+	$(CC) $(CPPFLAGS) $(MFLAGS) '$(patsubst %.mak,%.o,$@) $@' -MF $@ $<
+
+%.o : %.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
 
 # PHONY targets
 
@@ -65,7 +71,7 @@ uninstall:
 # real targets
 
 $(PROGRAM): $(DEPENDS) $(OBJECTS)
-	$(LD) -o $@ $(OBJECTS) $(LDLIBS)
+	$(LD) $(LDFLAGS) -o $@ $(OBJECTS) $(LDLIBS)
 	$(LNCMD) $(notdir $(abspath .))/$(PROGRAM) $(VPATH)
 
 -include $(DEPENDS)
