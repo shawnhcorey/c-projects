@@ -2,12 +2,12 @@
      Title: C/C++ Projects
  Copyright: Copyright 2018 by Shawn H Corey. Some rights reserved.
    Licence: GNU GENERAL PUBLIC LICENSE v3.0, see https://www.gnu.org/licenses/gpl-3.0.html
-   Purpose: Describe how to load & use the tools.
+   Purpose: A set of tools for creating and compiling small C/C++ projects.
 -->
 
 # NAME
 
-c-projects - Tools for creating & compiling C/C++ Projects
+c-projects - A set of tools for creating and compiling small C/C++ projects.
 
 # VERSION
 
@@ -15,12 +15,13 @@ This document refers to c-projects version 1.00
 
 # DESCRIPTION
 
-C/C++ Projects is a set of tools for the creation and compiling of projects
-written in C/C++.
+C/C++ Projects is a set of tools for the creation and compiling of small
+projects written in C/C++.
 
 ## Downloading
 
-Clone the Github repo.
+Decide where to place this tool set and clone the Github repo.
+To place it in your home directory:
 
     cd ~
     git clone https://github.com/shawnhcorey/c-projects.git
