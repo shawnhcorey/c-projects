@@ -18,6 +18,10 @@ This document refers to c-projects version 1.00
 C/C++ Projects is a set of tools for the creation and compiling of small
 projects written in C/C++.
 
+Developing small projects in C/C++ that have multiple sources files can be tedious.
+Adding, removing, or renaming sources files require changes to the Makefile and is often repetitive.
+This tool set is designed to replace maintenance of the Makefile with automatic compiling of the source files.
+
 ## Downloading
 
 Decide where to place this tool set and clone the Github repo.
