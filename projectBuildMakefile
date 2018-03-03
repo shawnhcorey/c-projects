@@ -11,7 +11,6 @@
 
 .SUFFIXES: .o .cpp .c .h .mak
 
-VPATH = ..
 
 # compiling commands
 CC  = gcc
@@ -24,21 +23,29 @@ CXXFLAGS = -Wall
 LDLIBS   = -lstdc++ -lm -lc
 MFLAGS   = -MM -MT
 
-# files & directories
-INSTALLDIR = $(wildcard ~/bin)
-SRCDIRS    = $(subst :, ,$(VPATH))
-
-# executable has same name as its directory
-PROGRAM  = $(notdir $(abspath ..))
-INCLUDES = $(foreach srcdir,$(SRCDIRS),$(wildcard $(srcdir)/*.h))
-SOURCES  = $(foreach srcdir,$(SRCDIRS),$(wildcard $(srcdir)/*.cpp) $(wildcard $(srcdir)/*.c))
-DEPENDS  = $(addsuffix .mak,$(basename $(notdir $(SOURCES))))
-OBJECTS  = $(addsuffix .o,$(basename $(notdir $(SOURCES))))
-
 # file manipulation commands
 RMCMD = rm -f
 CPCMD = cp -f
 LNCMD = ln -sf
+
+
+# project has same name as its directory
+PROJECT_DIR = $(dir $(abspath .))
+PROJECT     = $(notdir $(abspath ..))
+
+# build is a sub-directory of where the source files are
+VPATH      = ..
+SOURCE_DIR = $(subst :, ,$(VPATH))
+INCLUDES   = $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.h))
+SOURCES    = $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.cpp) $(wildcard $(srcdir)/*.c))
+
+# intermediate targets
+DEPENDS = $(addsuffix .mak,$(basename $(notdir $(SOURCES))))
+OBJECTS = $(addsuffix .o,$(basename $(notdir $(SOURCES))))
+
+# installation directory
+INSTALL_DIR = $(wildcard ~/bin)
+
 
 # implicit rules for C++
 %.mak : %.cpp
@@ -54,24 +61,26 @@ LNCMD = ln -sf
 %.o : %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
 
-# PHONY targets
 
-all: $(PROGRAM)
+# .PHONY targets
+
+all: $(PROJECT)
 
 clean:
 	find ! -name Makefile ! -type d -print -exec rm -f {} \;
 	find .. -ilname $(notdir $(abspath .))/\* -print -exec rm -f {} \;
 
 install:
-	$(CPCMD) $(PROGRAM) $(INSTALLDIR)
+	$(CPCMD) $(PROJECT) $(INSTALL_DIR)
 
 uninstall:
-	$(RMCMD) $(INSTALLDIR)/$(PROGRAM)
+	$(RMCMD) $(INSTALL_DIR)/$(PROJECT)
+
 
 # real targets
 
-$(PROGRAM): $(DEPENDS) $(OBJECTS)
+$(PROJECT): $(DEPENDS) $(OBJECTS)
 	$(LD) $(LDFLAGS) -o $@ $(OBJECTS) $(LDLIBS)
-	$(LNCMD) $(notdir $(abspath .))/$(PROGRAM) $(VPATH)
+	$(LNCMD) $(notdir $(abspath .))/$(PROJECT) $(PROJECT_DIR)
 
 -include $(DEPENDS)
