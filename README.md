@@ -22,6 +22,10 @@ Developing small projects in C/C++ that have multiple sources files can be tedio
 Adding, removing, or renaming sources files require changes to the Makefile and is often repetitive.
 This tool set is designed to replace maintenance of the Makefile with automatic compiling of the source files.
 
+All one has to do is add, edit, or remove the source files and run make.
+This tool set will determine the sources files and their dependencies
+and compile them.
+
 ## Downloading
 
 Decide where to place this tool set and clone the Github repo.
@@ -46,6 +50,9 @@ To make the executable, run `make`.
     # add C/C++ files
 
     make
+
+The `make` will create an executable with the same name as the project.
+In the above case, it will be named `myproject`.
 
 You can edit the C/C++ files and use `make` to recompile.
 
