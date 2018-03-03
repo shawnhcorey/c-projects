@@ -29,7 +29,7 @@ INSTALLDIR = $(wildcard ~/bin)
 SRCDIRS    = $(subst :, ,$(VPATH))
 
 # executable has same name as its directory
-PROGRAM  = $(notdir $(abspath $(VPATH)))
+PROGRAM  = $(notdir $(abspath ..))
 INCLUDES = $(foreach srcdir,$(SRCDIRS),$(wildcard $(srcdir)/*.h))
 SOURCES  = $(foreach srcdir,$(SRCDIRS),$(wildcard $(srcdir)/*.cpp) $(wildcard $(srcdir)/*.c))
 DEPENDS  = $(addsuffix .mak,$(basename $(notdir $(SOURCES))))
