@@ -29,9 +29,9 @@ CPCMD = cp -f
 LNCMD = ln -sf
 
 
-# project has same name as its directory
-PROJECT_DIR = $(dir $(abspath .))
-PROJECT     = $(notdir $(abspath ..))
+# project has same name as parent directory
+PROJECT_DIR = $(abspath ..)
+PROJECT     = $(notdir $(PROJECT_DIR))
 
 # build is a sub-directory of where the source files are
 VPATH      = ..
@@ -40,8 +40,8 @@ INCLUDES   = $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.h))
 SOURCES    = $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.cpp) $(wildcard $(srcdir)/*.c))
 
 # intermediate targets
-DEPENDS = $(addsuffix .mak,$(basename $(notdir $(SOURCES))))
-OBJECTS = $(addsuffix .o,$(basename $(notdir $(SOURCES))))
+DEPENDS = $(addsuffix .mak, $(basename $(notdir $(SOURCES))))
+OBJECTS = $(addsuffix .o,   $(basename $(notdir $(SOURCES))))
 
 # installation directory
 INSTALL_DIR = $(wildcard ~/bin)
