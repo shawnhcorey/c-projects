@@ -12,7 +12,7 @@
 
 BUILD = './build'
 
-# PHONY targets
+# .PHONY targets
 
 all:
 	$(MAKE) -C $(BUILD) all
