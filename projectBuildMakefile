@@ -1,9 +1,9 @@
-#
+# --------------------------------------
 #     Title: Build Makefile
 # Copyright: Copyright 2015 by Shawn H Corey.  All rights reserved.
 #   Licence: GPLv3, see https://www.gnu.org/licenses/gpl-3.0.html
 #   Purpose: Used to GNU make to build a C/C++ project.
-#
+# --------------------------------------
 
 # configuration
 
@@ -11,7 +11,7 @@
 
 .SUFFIXES: .o .cpp .c .h .mak
 
-
+# --------------------------------------
 # compiling commands
 CC  = gcc
 CXX = gcc
@@ -24,11 +24,11 @@ LDLIBS   = -lstdc++ -lm -lc
 MFLAGS   = -MM -MT
 
 # file manipulation commands
-RMCMD = rm -f
-CPCMD = cp -f
-LNCMD = ln -sf
+RM_CMD = rm -f
+CP_CMD = cp -f
+LN_CMD = ln -sf
 
-
+# --------------------------------------
 # project has same name as parent directory
 PROJECT_DIR = $(abspath ..)
 PROJECT     = $(notdir $(PROJECT_DIR))
@@ -46,7 +46,7 @@ OBJECTS = $(addsuffix .o,   $(basename $(notdir $(SOURCES))))
 # installation directory
 INSTALL_DIR = $(wildcard ~/bin)
 
-
+# --------------------------------------
 # implicit rules for C++
 %.mak : %.cpp
 	$(CXX) $(CPPFLAGS) $(MFLAGS) '$(patsubst %.mak,%.o,$@) $@' -MF $@ $<
@@ -61,7 +61,7 @@ INSTALL_DIR = $(wildcard ~/bin)
 %.o : %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
 
-
+# --------------------------------------
 # .PHONY targets
 
 all: $(PROJECT)
@@ -71,16 +71,16 @@ clean:
 	find .. -ilname $(notdir $(abspath .))/\* -print -exec rm -f {} \;
 
 install:
-	$(CPCMD) $(PROJECT) $(INSTALL_DIR)
+	$(CP_CMD) $(PROJECT) $(INSTALL_DIR)
 
 uninstall:
-	$(RMCMD) $(INSTALL_DIR)/$(PROJECT)
+	$(RM_CMD) $(INSTALL_DIR)/$(PROJECT)
 
-
+# --------------------------------------
 # real targets
 
 $(PROJECT): $(DEPENDS) $(OBJECTS)
 	$(LD) $(LDFLAGS) -o $@ $(OBJECTS) $(LDLIBS)
-	$(LNCMD) $(notdir $(abspath .))/$(PROJECT) $(PROJECT_DIR)
+	$(LN_CMD) $(notdir $(abspath .))/$(PROJECT) $(PROJECT_DIR)
 
 -include $(DEPENDS)
