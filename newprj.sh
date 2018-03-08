@@ -80,7 +80,7 @@ do
 		cd build
 
         # link the build makefile
-		ln -s ../../projectBuildMakefile Makefile
+		ln -s ../../projectBuild.mk Makefile
 
         # return to the base directory for the next $prj, if any
 		cd ../..

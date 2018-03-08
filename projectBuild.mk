@@ -7,9 +7,11 @@
 
 # configuration
 
+.SUFFIXES: .o .cpp .c .h .mk
+
 .PHONY: all clean install uninstall
 
-.SUFFIXES: .o .cpp .c .h .mak
+.DEFAULT_GOAL := all
 
 # --------------------------------------
 # compiling commands
@@ -40,23 +42,23 @@ INCLUDES   := $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.h))
 SOURCES    := $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.cpp) $(wildcard $(srcdir)/*.c))
 
 # intermediate targets
-DEPENDS := $(addsuffix .mak, $(basename $(notdir $(SOURCES))))
-OBJECTS := $(addsuffix .o,   $(basename $(notdir $(SOURCES))))
+DEPENDS := $(addsuffix .mk, $(basename $(notdir $(SOURCES))))
+OBJECTS := $(addsuffix .o,  $(basename $(notdir $(SOURCES))))
 
 # installation directory
 INSTALL_DIR := $(wildcard ~/bin)
 
 # --------------------------------------
 # implicit rules for C++
-%.mak : %.cpp
-	$(CXX) $(CPPFLAGS) $(MFLAGS) '$(patsubst %.mak,%.o,$@) $@' -MF $@ $<
+%.mk : %.cpp
+	$(CXX) $(CPPFLAGS) $(MFLAGS) '$(patsubst %.mk,%.o,$@) $@' -MF $@ $<
 
 %.o : %.cpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ -c $<
 
 # implicit rules for C
-%.mak : %.c
-	$(CC) $(CPPFLAGS) $(MFLAGS) '$(patsubst %.mak,%.o,$@) $@' -MF $@ $<
+%.mk : %.c
+	$(CC) $(CPPFLAGS) $(MFLAGS) '$(patsubst %.mk,%.o,$@) $@' -MF $@ $<
 
 %.o : %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
