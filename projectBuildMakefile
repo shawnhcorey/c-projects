@@ -70,7 +70,7 @@ clean:
 	find ! -name Makefile ! -type d -print -exec rm -f {} \;
 	find .. -ilname $(notdir $(abspath .))/\* -print -exec rm -f {} \;
 
-install:
+install: $(PROJECT)
 	$(CP_CMD) $(PROJECT) $(INSTALL_DIR)
 
 uninstall:
