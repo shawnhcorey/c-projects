@@ -10,19 +10,19 @@
 
 .PHONY: all clean install uninstall
 
-BUILD = './build'
+BUILD_DIR := './build'
 
 # .PHONY targets
 
 all:
-	$(MAKE) -C $(BUILD) all
+	$(MAKE) -C $(BUILD_DIR) all
 
 clean:
-	$(MAKE) -C $(BUILD) clean
+	$(MAKE) -C $(BUILD_DIR) clean
 
 install:
-	$(MAKE) -C $(BUILD) install
+	$(MAKE) -C $(BUILD_DIR) install
 
 uninstall:
-	$(MAKE) -C $(BUILD) uninstall
+	$(MAKE) -C $(BUILD_DIR) uninstall
 

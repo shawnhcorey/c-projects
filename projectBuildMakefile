@@ -13,38 +13,38 @@
 
 # --------------------------------------
 # compiling commands
-CC  = gcc
-CXX = gcc
-LD  = gcc
+CC  := gcc
+CXX := gcc
+LD  := gcc
 
 # standard compile flags
-CFLAGS   = -Wall
-CXXFLAGS = -Wall
-LDLIBS   = -lstdc++ -lm -lc
-MFLAGS   = -MM -MT
+CFLAGS   := -Wall
+CXXFLAGS := -Wall
+LDLIBS   := -lstdc++ -lm -lc
+MFLAGS   := -MM -MT
 
 # file manipulation commands
-RM_CMD = rm -f
-CP_CMD = cp -f
-LN_CMD = ln -sf
+RM_CMD := rm -f
+CP_CMD := cp -f
+LN_CMD := ln -sf
 
 # --------------------------------------
 # project has same name as parent directory
-PROJECT_DIR = $(abspath ..)
-PROJECT     = $(notdir $(PROJECT_DIR))
+PROJECT_DIR := $(abspath ..)
+PROJECT     := $(notdir $(PROJECT_DIR))
 
 # build is a sub-directory of where the source files are
-VPATH      = ..
-SOURCE_DIR = $(subst :, ,$(VPATH))
-INCLUDES   = $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.h))
-SOURCES    = $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.cpp) $(wildcard $(srcdir)/*.c))
+VPATH      := ..
+SOURCE_DIR := $(subst :, ,$(VPATH))
+INCLUDES   := $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.h))
+SOURCES    := $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.cpp) $(wildcard $(srcdir)/*.c))
 
 # intermediate targets
-DEPENDS = $(addsuffix .mak, $(basename $(notdir $(SOURCES))))
-OBJECTS = $(addsuffix .o,   $(basename $(notdir $(SOURCES))))
+DEPENDS := $(addsuffix .mak, $(basename $(notdir $(SOURCES))))
+OBJECTS := $(addsuffix .o,   $(basename $(notdir $(SOURCES))))
 
 # installation directory
-INSTALL_DIR = $(wildcard ~/bin)
+INSTALL_DIR := $(wildcard ~/bin)
 
 # --------------------------------------
 # implicit rules for C++
