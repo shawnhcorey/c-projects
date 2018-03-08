@@ -13,17 +13,19 @@
 
 BUILD_DIR := './build'
 
+BUILD_MAKEFILE := build.mk
+
 # .PHONY targets
 
 all:
-	$(MAKE) -C $(BUILD_DIR) all
+	$(MAKE) --directory=$(BUILD_DIR) --makefile=$(BUILD_MAKEFILE) all
 
 clean:
-	$(MAKE) -C $(BUILD_DIR) clean
+	$(MAKE) --directory=$(BUILD_DIR) --makefile=$(BUILD_MAKEFILE) clean
 
 install:
-	$(MAKE) -C $(BUILD_DIR) install
+	$(MAKE) --directory=$(BUILD_DIR) --makefile=$(BUILD_MAKEFILE) install
 
 uninstall:
-	$(MAKE) -C $(BUILD_DIR) uninstall
+	$(MAKE) --directory=$(BUILD_DIR) --makefile=$(BUILD_MAKEFILE) uninstall
 

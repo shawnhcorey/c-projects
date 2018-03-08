@@ -69,7 +69,7 @@ INSTALL_DIR := $(wildcard ~/bin)
 all: $(PROJECT)
 
 clean:
-	find ! -name Makefile ! -type d -print -exec rm -f {} \;
+	find ! -name build.mk ! -type d -print -exec rm -f {} \;
 	find .. -ilname $(notdir $(abspath .))/\* -print -exec rm -f {} \;
 
 install: $(PROJECT)
