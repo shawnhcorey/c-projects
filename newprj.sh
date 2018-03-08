@@ -49,7 +49,7 @@ do
 		mkdir "$prj"
         if [ ! -d "$prj" ]
         then
-            echo 1>&2 "error: directory \"$proj\" not found"
+            echo 1>&2 "error: directory \"$prj\" not found"
             break
         fi
 		cd "$prj"
@@ -74,7 +74,7 @@ do
 		mkdir build
         if [ ! -d build ]
         then
-            echo 1>&2 "error: directory \"$proj\"/build not found"
+            echo 1>&2 "error: directory \"$prj\"/build not found"
             break
         fi
 		cd build
