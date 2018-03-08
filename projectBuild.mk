@@ -69,7 +69,7 @@ INSTALL_DIR := $(wildcard ~/bin)
 all: $(PROJECT)
 
 clean:
-	find ! -name build.mk ! -type d -print -delete
+	find ! -name build.mk ! -name . -print -delete
 	find .. -ilname $(notdir $(abspath .))/\* -print -delete
 
 install: $(PROJECT)
