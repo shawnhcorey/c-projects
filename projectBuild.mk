@@ -31,6 +31,11 @@ CP_CMD := cp -f
 LN_CMD := ln -sf
 
 # --------------------------------------
+#  build
+BUILD          := $(notdir $(abspath .))
+BUILD_MAKEFILE := $(BUILD).mk
+
+# --------------------------------------
 # project has same name as parent directory
 PROJECT_DIR := $(abspath ..)
 PROJECT     := $(notdir $(PROJECT_DIR))
@@ -69,8 +74,8 @@ INSTALL_DIR := $(wildcard ~/bin)
 all: $(PROJECT)
 
 clean:
-	find ! -name build.mk ! -name . -print -delete
-	find .. -ilname $(notdir $(abspath .))/\* -print -delete
+	find ! -name $(BUILD_MAKEFILE) ! -name . -print -delete
+	find .. -ilname $(BUILD)/\* -print -delete
 
 install: $(PROJECT)
 	$(CP_CMD) $(PROJECT) $(INSTALL_DIR)
@@ -83,6 +88,6 @@ uninstall:
 
 $(PROJECT): $(DEPENDS) $(OBJECTS)
 	$(LD) $(LDFLAGS) -o $@ $(OBJECTS) $(LDLIBS)
-	$(LN_CMD) $(notdir $(abspath .))/$(PROJECT) $(PROJECT_DIR)
+	$(LN_CMD) $(BUILD)/$(PROJECT) $(PROJECT_DIR)
 
 -include $(DEPENDS)
