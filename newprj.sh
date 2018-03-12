@@ -1,20 +1,12 @@
 #!/bin/bash
 # --------------------------------------
-#
 #     Title: New C/C++ Project
-# Copyright: Copyright 2015 by Shawn H Corey.  All rights reserved.
-#    Author: Shawn H Corey
-#
-#      Name: New
-#      File: New
-#   Created: October 19, 2015
-#     Epoch: 1445266899
-#
-#   Purpose: Creates a new C/C++ project
-#
+# Copyright: Copyright 2015, 2018 by Shawn H Corey. Some rights reserved.
+#   Licence: GPLv3, see https://www.gnu.org/licenses/gpl-3.0.html
+#   Purpose: Creates a new C/C++ project.
 # --------------------------------------
 
-# must have at least on project
+# must have at least one project
 if [ $# -eq 0 ]
 then
 	echo "Usage: $0 project_name ..." 1>&2
