@@ -17,15 +17,6 @@ BUILD_MAKEFILE := build.mk
 
 # .PHONY targets
 
-all:
-	$(MAKE) --directory=$(BUILD_DIR) --makefile=$(BUILD_MAKEFILE) all
-
-clean:
-	$(MAKE) --directory=$(BUILD_DIR) --makefile=$(BUILD_MAKEFILE) clean
-
-install:
-	$(MAKE) --directory=$(BUILD_DIR) --makefile=$(BUILD_MAKEFILE) install
-
-uninstall:
-	$(MAKE) --directory=$(BUILD_DIR) --makefile=$(BUILD_MAKEFILE) uninstall
+all clean install uninstall:
+	$(MAKE) --directory=$(BUILD_DIR) --makefile=$(BUILD_MAKEFILE) $@
 
