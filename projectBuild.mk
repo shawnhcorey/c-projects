@@ -9,7 +9,7 @@
 
 .SUFFIXES: .o .cpp .c .h .mk
 
-.PHONY: all clean install uninstall
+.PHONY: all clean install uninstall info
 
 .DEFAULT_GOAL := all
 
@@ -82,6 +82,16 @@ install: $(PROJECT)
 
 uninstall:
 	$(RM_CMD) $(INSTALL_DIR)/$(PROJECT)
+
+info:
+	$(info BUILD=$(BUILD))
+	$(info PROJECT=$(PROJECT))
+	$(info SOURCE_DIR=$(SOURCE_DIR))
+	$(info INCLUDES=$(INCLUDES))
+	$(info SOURCES=$(SOURCES))
+	$(info DEPENDS=$(DEPENDS))
+	$(info OBJECTS=$(OBJECTS))
+	$(info INSTALL_DIR=$(INSTALL_DIR))
 
 # --------------------------------------
 # real targets

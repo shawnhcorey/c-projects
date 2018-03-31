@@ -7,7 +7,7 @@
 
 # configuration
 
-.PHONY: all clean install uninstall
+.PHONY: all clean install uninstall info
 
 .DEFAULT_GOAL := all
 
@@ -17,6 +17,6 @@ BUILD_MAKEFILE := build.mk
 
 # .PHONY targets
 
-all clean install uninstall:
+all clean install uninstall info:
 	$(MAKE) --directory=$(BUILD_DIR) --makefile=$(BUILD_MAKEFILE) $@
 
