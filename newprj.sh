@@ -13,21 +13,36 @@ then
 	exit 1
 fi
 
+# year for copyright notice
 year=$(date '+%Y')
 
-user=$(grep $(whoami) /etc/passwd | sed -e's/^\([^:]*:\)\{4\}//' -e's/[,;:].*//')
-if [ -z "$user" ]
-then
-    user=$(whoami)
-fi
+# GECOS should have author. email & website optional
+gecos=$(grep $(whoami) /etc/passwd | sed -e's/^\([^:]*:\)\{4\}//' -e's#:.*$##')
 
-email=$(grep $(whoami) /etc/passwd | sed -e's/^[^,]*,//' -e's/,.*$//' -e's/\./ dot /g' -e's/@/ at /g' )
+# user name
+username=$(echo "$gecos" | sed -e's/^\([^:]*:\)\{4\}//' -e's/[,;:].*//')
+if [ -z "$username" ]
+then
+    username=$(whoami)
+fi
+author="$username"
+
+# get email if any
+email=$(echo "$gecos" | grep -o '\<mailto[^, ]*')
 if [ -n "$email" ]
 then
-    email="$user  \`< $email >\`"
-else
-    email="$user"
+    author="$author \`<$email>\`"
 fi
+
+# get website if any
+website=$(echo "$gecos" | grep -o '\<http[^, ]*')
+if [ -n "$website" ]
+then
+    author="$author \`<$website>\`"
+fi
+
+# replace HTTP % escapes
+author=$(echo "$author" | perl -ple's/%([[:xdigit:]]{2})/chr(hex($1))/ge')
 
 for prj in "$@"
 do
@@ -47,7 +62,7 @@ do
 		cd "$prj"
 
         # create documentation for the project
-        sed -e"s/%Y/$year/g" -e"s/%P/$prj/g" -e"s/%U/$user/g" -e"s/%E/$email/g" ../projectREADME.md > README.md
+        sed -e"s/%Y/$year/g" -e"s/%P/$prj/g" -e"s/%U/$username/g" -e"s#%E#$author#g" ../projectREADME.md > README.md
 
         # copy the licence
         if [ -f ../projectLicence.md ]
@@ -60,7 +75,7 @@ do
 
         # create a git repo
         git init
-        sed -e"s/%Y/$year/g" -e"s/%P/$prj/g" -e"s/%U/$user/g" ../projectGitignore > .gitignore
+        sed -e"s/%Y/$year/g" -e"s/%P/$prj/g" -e"s/%U/$username/g" ../projectGitignore > .gitignore
 
         # make the build directory and switch to it
 		mkdir build
@@ -74,8 +89,19 @@ do
         # link the build makefile
 		ln -s ../../projectBuild.mk build.mk
 
+        # return to the project directory
+		cd ..
+
+        # make the build directory and switch to it
+		mkdir src
+        if [ ! -d src ]
+        then
+            echo 1>&2 "error: directory \"$prj\"/src not found"
+            break
+        fi
+
         # return to the base directory for the next $prj, if any
-		cd ../..
+		cd ..
 	fi
 done
 

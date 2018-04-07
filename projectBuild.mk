@@ -41,10 +41,10 @@ PROJECT_DIR := $(abspath ..)
 PROJECT     := $(notdir $(PROJECT_DIR))
 
 # build is a sub-directory of where the source files are
-VPATH      := ..
-SOURCE_DIR := $(subst :, ,$(VPATH))
-INCLUDES   := $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.h))
-SOURCES    := $(foreach srcdir,$(SOURCE_DIR),$(wildcard $(srcdir)/*.cpp) $(wildcard $(srcdir)/*.c))
+VPATH       := ../src
+SOURCE_DIRS := $(subst :, ,$(VPATH))
+INCLUDES    := $(foreach srcdir,$(SOURCE_DIRS),$(wildcard $(srcdir)/*.h))
+SOURCES     := $(foreach srcdir,$(SOURCE_DIRS),$(wildcard $(srcdir)/*.cpp) $(wildcard $(srcdir)/*.c))
 
 # intermediate targets
 DEPENDS := $(addsuffix .mk, $(basename $(notdir $(SOURCES))))
@@ -86,7 +86,7 @@ uninstall:
 info:
 	$(info BUILD=$(BUILD))
 	$(info PROJECT=$(PROJECT))
-	$(info SOURCE_DIR=$(SOURCE_DIR))
+	$(info SOURCE_DIRS=$(SOURCE_DIRS))
 	$(info INCLUDES=$(INCLUDES))
 	$(info SOURCES=$(SOURCES))
 	$(info DEPENDS=$(DEPENDS))
