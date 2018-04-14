@@ -92,14 +92,6 @@ do
         # return to the project directory
 		cd ..
 
-        # make the build directory and switch to it
-		mkdir src
-        if [ ! -d src ]
-        then
-            echo 1>&2 "error: directory \"$prj\"/src not found"
-            break
-        fi
-
         # return to the base directory for the next $prj, if any
 		cd ..
 	fi
