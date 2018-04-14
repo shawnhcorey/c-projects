@@ -41,7 +41,7 @@ PROJECT_DIR := $(abspath ..)
 PROJECT     := $(notdir $(PROJECT_DIR))
 
 # build is a sub-directory of where the source files are
-VPATH       := ../src
+VPATH       := ..
 SOURCE_DIRS := $(subst :, ,$(VPATH))
 INCLUDES    := $(foreach srcdir,$(SOURCE_DIRS),$(wildcard $(srcdir)/*.h))
 SOURCES     := $(foreach srcdir,$(SOURCE_DIRS),$(wildcard $(srcdir)/*.cpp) $(wildcard $(srcdir)/*.c))
