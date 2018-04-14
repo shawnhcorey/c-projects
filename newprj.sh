@@ -71,26 +71,19 @@ do
         fi
 
         # link the master makefile
-		ln -s ../projectMakefile Makefile
+		ln -s ../projectMakefile.mk Makefile
 
         # create a git repo
         git init
         sed -e"s/%Y/$year/g" -e"s/%P/$prj/g" -e"s/%U/$username/g" ../projectGitignore > .gitignore
 
-        # make the build directory and switch to it
+        # make the build directory
 		mkdir build
         if [ ! -d build ]
         then
             echo 1>&2 "error: directory \"$prj\"/build not found"
             break
         fi
-		cd build
-
-        # link the build makefile
-		ln -s ../../projectBuild.mk build.mk
-
-        # return to the project directory
-		cd ..
 
         # return to the base directory for the next $prj, if any
 		cd ..
