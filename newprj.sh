@@ -6,6 +6,8 @@
 #   Purpose: Creates a new C/C++ project.
 # --------------------------------------
 
+# set -x 
+
 # must have at least one project
 if [ $# -eq 0 ]
 then
@@ -42,7 +44,7 @@ then
 fi
 
 # replace HTTP % escapes
-author=$(echo "$author" | perl -ple's/%([[:xdigit:]]{2})/chr(hex($1))/ge')
+author=$(echo "$author" | perl -ple's/\&\#x([[:xdigit:]]{2});/chr(hex($1))/ige')
 
 for prj in "$@"
 do
